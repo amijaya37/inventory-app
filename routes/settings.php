@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Web\WellKnownPasskeyController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->group(function () {
@@ -18,9 +19,4 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('security.edit');
 });
 
-Route::get('.well-known/passkey-endpoints', function () {
-    return response()->json([
-        'enroll' => route('security.edit'),
-        'manage' => route('security.edit'),
-    ]);
-})->name('well-known.passkeys');
+Route::get('.well-known/passkey-endpoints', WellKnownPasskeyController::class)->name('well-known.passkeys');
